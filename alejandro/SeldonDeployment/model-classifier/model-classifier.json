@@ -4,10 +4,7 @@
     "metadata": {
         "name": "model-classifier",
         "namespace": "alejandro",
-        "creationTimestamp": null,
-        "labels": {
-            "app.kubernetes.io/instance": "seldon-demo-cluster-2-alejandro"
-        }
+        "creationTimestamp": null
     },
     "spec": {
         "name": "model-classifier",
@@ -63,7 +60,7 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 100,
+                "traffic": 80,
                 "explainer": {
                     "type": "AnchorTabular",
                     "modelUri": "gs://seldon-models/sklearn/income/explainer",
@@ -72,6 +69,42 @@
                         "resources": {}
                     }
                 }
+            },
+            {
+                "name": "canary",
+                "graph": {
+                    "name": "model-classifier-container",
+                    "implementation": "SKLEARN_SERVER",
+                    "endpoint": {
+                        "type": "REST"
+                    },
+                    "modelUri": "gs://seldon-models/sklearn/income/model",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2020-06-26T13:02:14Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "model-classifier-container",
+                                    "resources": {}
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "annotations": {
+                    "seldon.io/canary": "true"
+                },
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 20
             }
         ],
         "annotations": {
