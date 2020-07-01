@@ -4,7 +4,10 @@
     "metadata": {
         "name": "hypergiant-classifier",
         "namespace": "lee",
-        "creationTimestamp": null
+        "creationTimestamp": null,
+        "labels": {
+            "app.kubernetes.io/instance": "seldon-demo-cluster-2-lee"
+        }
     },
     "spec": {
         "name": "hypergiant-classifier",
@@ -28,7 +31,7 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-07-01T14:27:23Z"
+                            "creationTimestamp": "2020-07-01T14:34:11Z"
                         },
                         "spec": {
                             "containers": [
@@ -42,16 +45,7 @@
                                             "protocol": "TCP"
                                         }
                                     ],
-                                    "resources": {
-                                        "limits": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        },
-                                        "requests": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        }
-                                    },
+                                    "resources": {},
                                     "volumeMounts": [
                                         {
                                             "name": "podinfo",
@@ -69,43 +63,7 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 90
-            },
-            {
-                "name": "canary",
-                "graph": {
-                    "name": "hypergiant-classifier-container",
-                    "implementation": "SKLEARN_SERVER",
-                    "endpoint": {
-                        "type": "REST"
-                    },
-                    "modelUri": "gs://seldon-models/sklearn/income/model",
-                    "logger": {
-                        "mode": "all"
-                    }
-                },
-                "componentSpecs": [
-                    {
-                        "metadata": {
-                            "creationTimestamp": "2020-07-01T14:34:11Z"
-                        },
-                        "spec": {
-                            "containers": [
-                                {
-                                    "name": "hypergiant-classifier-container",
-                                    "resources": {}
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "replicas": 1,
-                "annotations": {
-                    "seldon.io/canary": "true"
-                },
-                "engineResources": {},
-                "svcOrchSpec": {},
-                "traffic": 10
+                "traffic": 100
             }
         ],
         "annotations": {
