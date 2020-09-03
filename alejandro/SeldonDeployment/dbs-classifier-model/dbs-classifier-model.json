@@ -1,0 +1,53 @@
+{
+    "kind": "SeldonDeployment",
+    "apiVersion": "machinelearning.seldon.io/v1alpha2",
+    "metadata": {
+        "name": "dbs-classifier-model",
+        "namespace": "alejandro",
+        "creationTimestamp": null
+    },
+    "spec": {
+        "name": "dbs-classifier-model",
+        "predictors": [
+            {
+                "name": "default",
+                "graph": {
+                    "name": "dbs-classifier-model-container",
+                    "implementation": "SKLEARN_SERVER",
+                    "endpoint": {
+                        "type": "REST"
+                    },
+                    "modelUri": "gs://seldon-models/sklearn/income/model",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2020-09-03T07:50:20Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "dbs-classifier-model-container",
+                                    "resources": {}
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 100
+            }
+        ],
+        "annotations": {
+            "seldon.io/engine-seldon-log-messages-externally": "true"
+        },
+        "protocol": "seldon",
+        "transport": "rest"
+    },
+    "status": {}
+}
