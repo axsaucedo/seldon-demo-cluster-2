@@ -25,26 +25,13 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-09-30T11:35:32Z"
+                            "creationTimestamp": "2020-09-30T12:55:56Z"
                         },
                         "spec": {
                             "containers": [
                                 {
                                     "name": "hpa-test-container",
                                     "resources": {}
-                                }
-                            ]
-                        },
-                        "hpaSpec": {
-                            "minReplicas": 1,
-                            "maxReplicas": 5,
-                            "metrics": [
-                                {
-                                    "type": "Resource",
-                                    "resource": {
-                                        "name": "cpu",
-                                        "targetAverageUtilization": "10mi"
-                                    }
                                 }
                             ]
                         }
