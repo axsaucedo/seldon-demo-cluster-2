@@ -4,7 +4,10 @@
     "metadata": {
         "name": "carestream-enr",
         "namespace": "joel",
-        "creationTimestamp": null
+        "creationTimestamp": null,
+        "labels": {
+            "app.kubernetes.io/instance": "seldon-demo-cluster-2-joel"
+        }
     },
     "spec": {
         "name": "carestream-enr",
@@ -14,13 +17,13 @@
                 "graph": {
                     "name": "carestream-enr-container",
                     "type": "MODEL",
-                    "implementation": "SKLEARN_SERVER",
+                    "implementation": "XGBOOST_SERVER",
                     "endpoint": {
                         "service_host": "localhost",
                         "service_port": 9000,
                         "type": "REST"
                     },
-                    "modelUri": "gs://seldon-models/sklearn/iris",
+                    "modelUri": "gs://seldon-models/xgboost/iris",
                     "logger": {
                         "mode": "all"
                     }
@@ -28,13 +31,13 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-10-01T15:26:34Z"
+                            "creationTimestamp": "2020-10-01T15:32:57Z"
                         },
                         "spec": {
                             "containers": [
                                 {
                                     "name": "carestream-enr-container",
-                                    "image": "seldonio/sklearnserver_rest:0.3",
+                                    "image": "seldonio/xgboostserver_rest:0.4",
                                     "ports": [
                                         {
                                             "name": "metrics",
@@ -42,16 +45,7 @@
                                             "protocol": "TCP"
                                         }
                                     ],
-                                    "resources": {
-                                        "limits": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        },
-                                        "requests": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        }
-                                    },
+                                    "resources": {},
                                     "volumeMounts": [
                                         {
                                             "name": "podinfo",
@@ -69,43 +63,7 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 80
-            },
-            {
-                "name": "canary",
-                "graph": {
-                    "name": "carestream-enr-container",
-                    "implementation": "XGBOOST_SERVER",
-                    "endpoint": {
-                        "type": "REST"
-                    },
-                    "modelUri": "gs://seldon-models/xgboost/iris",
-                    "logger": {
-                        "mode": "all"
-                    }
-                },
-                "componentSpecs": [
-                    {
-                        "metadata": {
-                            "creationTimestamp": "2020-10-01T15:32:57Z"
-                        },
-                        "spec": {
-                            "containers": [
-                                {
-                                    "name": "carestream-enr-container",
-                                    "resources": {}
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "replicas": 1,
-                "annotations": {
-                    "seldon.io/canary": "true"
-                },
-                "engineResources": {},
-                "svcOrchSpec": {},
-                "traffic": 20
+                "traffic": 100
             }
         ],
         "annotations": {
