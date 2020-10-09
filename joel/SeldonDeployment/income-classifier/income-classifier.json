@@ -69,7 +69,7 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 90,
+                "traffic": 80,
                 "explainer": {
                     "type": "AnchorTabular",
                     "modelUri": "gs://seldon-models/sklearn/income/explainer",
@@ -101,7 +101,7 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-09-07T11:58:12Z"
+                            "creationTimestamp": "2020-06-04T14:56:13Z"
                         },
                         "spec": {
                             "containers": [
@@ -128,7 +128,7 @@
                 },
                 "engineResources": {},
                 "svcOrchSpec": {},
-                "traffic": 10
+                "traffic": 20
             }
         ],
         "annotations": {
