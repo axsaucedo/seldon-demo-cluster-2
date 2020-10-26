@@ -4,7 +4,10 @@
     "metadata": {
         "name": "model-test",
         "namespace": "joel",
-        "creationTimestamp": null
+        "creationTimestamp": null,
+        "labels": {
+            "app.kubernetes.io/instance": "seldon-demo-cluster-2-joel"
+        }
     },
     "spec": {
         "name": "model-test",
@@ -14,13 +17,13 @@
                 "graph": {
                     "name": "model-test-container",
                     "type": "MODEL",
-                    "implementation": "SKLEARN_SERVER",
+                    "implementation": "XGBOOST_SERVER",
                     "endpoint": {
                         "service_host": "localhost",
                         "service_port": 9000,
                         "type": "REST"
                     },
-                    "modelUri": "gs://seldon-models/sklearn/iris",
+                    "modelUri": "gs://seldon-models/xgboost/iris",
                     "logger": {
                         "mode": "all"
                     }
@@ -28,13 +31,13 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-10-26T12:27:27Z"
+                            "creationTimestamp": "2020-10-26T12:32:10Z"
                         },
                         "spec": {
                             "containers": [
                                 {
                                     "name": "model-test-container",
-                                    "image": "seldonio/sklearnserver_rest:0.3",
+                                    "image": "seldonio/xgboostserver_rest:0.4",
                                     "ports": [
                                         {
                                             "name": "metrics",
@@ -69,52 +72,7 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 85
-            },
-            {
-                "name": "canary",
-                "graph": {
-                    "name": "model-test-container",
-                    "implementation": "XGBOOST_SERVER",
-                    "endpoint": {
-                        "type": "REST"
-                    },
-                    "modelUri": "gs://seldon-models/xgboost/iris",
-                    "logger": {
-                        "mode": "all"
-                    }
-                },
-                "componentSpecs": [
-                    {
-                        "metadata": {
-                            "creationTimestamp": "2020-10-26T12:32:10Z"
-                        },
-                        "spec": {
-                            "containers": [
-                                {
-                                    "name": "model-test-container",
-                                    "resources": {
-                                        "limits": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        },
-                                        "requests": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "replicas": 1,
-                "annotations": {
-                    "seldon.io/canary": "true"
-                },
-                "engineResources": {},
-                "svcOrchSpec": {},
-                "traffic": 15
+                "traffic": 100
             }
         ],
         "annotations": {
