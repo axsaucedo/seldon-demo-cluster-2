@@ -1,0 +1,62 @@
+{
+    "kind": "SeldonDeployment",
+    "apiVersion": "machinelearning.seldon.io/v1alpha2",
+    "metadata": {
+        "name": "inarix-test",
+        "namespace": "joel",
+        "creationTimestamp": null
+    },
+    "spec": {
+        "name": "inarix-test",
+        "predictors": [
+            {
+                "name": "default",
+                "graph": {
+                    "name": "inarix-test-container",
+                    "implementation": "SKLEARN_SERVER",
+                    "endpoint": {
+                        "type": "REST"
+                    },
+                    "modelUri": "gs://seldon-models/sklearn/iris",
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2020-11-12T13:12:51Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "inarix-test-container",
+                                    "resources": {
+                                        "limits": {
+                                            "cpu": "1",
+                                            "memory": "1Gi"
+                                        },
+                                        "requests": {
+                                            "cpu": "1",
+                                            "memory": "1Gi"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 100
+            }
+        ],
+        "annotations": {
+            "seldon.io/engine-seldon-log-messages-externally": "true"
+        },
+        "protocol": "seldon",
+        "transport": "rest"
+    },
+    "status": {}
+}
