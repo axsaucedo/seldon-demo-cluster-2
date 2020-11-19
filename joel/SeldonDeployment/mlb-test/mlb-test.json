@@ -1,0 +1,53 @@
+{
+    "kind": "SeldonDeployment",
+    "apiVersion": "machinelearning.seldon.io/v1alpha2",
+    "metadata": {
+        "name": "mlb-test",
+        "namespace": "joel",
+        "creationTimestamp": null
+    },
+    "spec": {
+        "name": "mlb-test",
+        "predictors": [
+            {
+                "name": "default",
+                "graph": {
+                    "name": "mlb-test-container",
+                    "type": "MODEL",
+                    "endpoint": {
+                        "type": "REST"
+                    },
+                    "logger": {
+                        "mode": "all"
+                    }
+                },
+                "componentSpecs": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": "2020-11-19T13:53:19Z"
+                        },
+                        "spec": {
+                            "containers": [
+                                {
+                                    "name": "mlb-test-container",
+                                    "image": "tomfarrand/mlb-scoring:0.2",
+                                    "resources": {}
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "replicas": 1,
+                "engineResources": {},
+                "svcOrchSpec": {},
+                "traffic": 100
+            }
+        ],
+        "annotations": {
+            "seldon.io/engine-seldon-log-messages-externally": "true"
+        },
+        "protocol": "seldon",
+        "transport": "rest"
+    },
+    "status": {}
+}
