@@ -4,7 +4,10 @@
     "metadata": {
         "name": "hdfc-test",
         "namespace": "joel",
-        "creationTimestamp": null
+        "creationTimestamp": null,
+        "labels": {
+            "app.kubernetes.io/instance": "seldon-demo-cluster-2-joel"
+        }
     },
     "spec": {
         "name": "hdfc-test",
@@ -14,13 +17,13 @@
                 "graph": {
                     "name": "hdfc-test-container",
                     "type": "MODEL",
-                    "implementation": "SKLEARN_SERVER",
+                    "implementation": "XGBOOST_SERVER",
                     "endpoint": {
                         "service_host": "localhost",
                         "service_port": 9000,
                         "type": "REST"
                     },
-                    "modelUri": "gs://seldon-models/sklearn/iris",
+                    "modelUri": "gs://seldon-models/xgboost/iris",
                     "logger": {
                         "mode": "all"
                     }
@@ -28,13 +31,13 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-11-25T09:35:26Z"
+                            "creationTimestamp": "2020-11-25T09:46:03Z"
                         },
                         "spec": {
                             "containers": [
                                 {
                                     "name": "hdfc-test-container",
-                                    "image": "seldonio/sklearnserver_rest:0.3",
+                                    "image": "seldonio/xgboostserver_rest:0.4",
                                     "ports": [
                                         {
                                             "name": "metrics",
@@ -69,52 +72,7 @@
                     "version": "default"
                 },
                 "svcOrchSpec": {},
-                "traffic": 70
-            },
-            {
-                "name": "canary",
-                "graph": {
-                    "name": "hdfc-test-container",
-                    "implementation": "XGBOOST_SERVER",
-                    "endpoint": {
-                        "type": "REST"
-                    },
-                    "modelUri": "gs://seldon-models/xgboost/iris",
-                    "logger": {
-                        "mode": "all"
-                    }
-                },
-                "componentSpecs": [
-                    {
-                        "metadata": {
-                            "creationTimestamp": "2020-11-25T09:46:03Z"
-                        },
-                        "spec": {
-                            "containers": [
-                                {
-                                    "name": "hdfc-test-container",
-                                    "resources": {
-                                        "limits": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        },
-                                        "requests": {
-                                            "cpu": "1",
-                                            "memory": "1Gi"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "replicas": 1,
-                "annotations": {
-                    "seldon.io/canary": "true"
-                },
-                "engineResources": {},
-                "svcOrchSpec": {},
-                "traffic": 30
+                "traffic": 100
             }
         ],
         "annotations": {
