@@ -4,10 +4,7 @@
     "metadata": {
         "name": "hdfc-test",
         "namespace": "joel",
-        "creationTimestamp": null,
-        "labels": {
-            "app.kubernetes.io/instance": "seldon-demo-cluster-2-joel"
-        }
+        "creationTimestamp": null
     },
     "spec": {
         "name": "hdfc-test",
@@ -16,14 +13,11 @@
                 "name": "default",
                 "graph": {
                     "name": "hdfc-test-container",
-                    "type": "MODEL",
-                    "implementation": "XGBOOST_SERVER",
+                    "implementation": "SKLEARN_SERVER",
                     "endpoint": {
-                        "service_host": "localhost",
-                        "service_port": 9000,
                         "type": "REST"
                     },
-                    "modelUri": "gs://seldon-models/xgboost/iris",
+                    "modelUri": "gs://seldon-models/sklearn/iris",
                     "logger": {
                         "mode": "all"
                     }
@@ -31,20 +25,12 @@
                 "componentSpecs": [
                     {
                         "metadata": {
-                            "creationTimestamp": "2020-11-25T09:46:03Z"
+                            "creationTimestamp": "2020-11-25T09:35:26Z"
                         },
                         "spec": {
                             "containers": [
                                 {
                                     "name": "hdfc-test-container",
-                                    "image": "seldonio/xgboostserver_rest:0.4",
-                                    "ports": [
-                                        {
-                                            "name": "metrics",
-                                            "containerPort": 6000,
-                                            "protocol": "TCP"
-                                        }
-                                    ],
                                     "resources": {
                                         "limits": {
                                             "cpu": "1",
@@ -54,13 +40,7 @@
                                             "cpu": "1",
                                             "memory": "1Gi"
                                         }
-                                    },
-                                    "volumeMounts": [
-                                        {
-                                            "name": "podinfo",
-                                            "mountPath": "/etc/podinfo"
-                                        }
-                                    ]
+                                    }
                                 }
                             ]
                         }
@@ -68,9 +48,6 @@
                 ],
                 "replicas": 1,
                 "engineResources": {},
-                "labels": {
-                    "version": "default"
-                },
                 "svcOrchSpec": {},
                 "traffic": 100
             }
